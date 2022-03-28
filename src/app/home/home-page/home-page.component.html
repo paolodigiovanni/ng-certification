@@ -1,0 +1,7 @@
+<div class="container-fluid">
+    <app-location-adder (onAddLocation)="showWeatherDetails($event)"></app-location-adder>
+
+    <div *ngFor="let weatherMap of weatherMaps">
+        <app-location-details [details]="weatherMap" (onClose)="removeWeatherDetails($event)"></app-location-details>
+    </div>
+</div>

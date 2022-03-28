@@ -1,0 +1,19 @@
+<div class="well flex">
+    <div>
+        <h3>{{details?.value?.name}} ({{details?.key}})</h3>
+        <h4>Current conditions: {{details?.value?.weather[0].main}}</h4>
+        <h4>Temperatures today:</h4>
+        <p>
+            Current {{details?.value?.main?.temp}}
+            - Max {{details?.value?.main?.temp_max}}
+            - Min {{details?.value?.main?.temp_min}}
+        </p>
+        <p>
+            <a [routerLink]="['/forecast', details?.key]">Show {{count}}-day forecast for {{details?.value?.name}}</a>
+        </p>
+    </div>
+    <div>
+        <span class="close" (click)="closeDetails()">×</span>
+        <img src="{{imgUrl}}{{details?.value?.weather[0].main | imgNamePipe}}{{imgExt}}">
+    </div>
+</div>

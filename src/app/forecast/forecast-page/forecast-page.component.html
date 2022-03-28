@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <div class="panel panel-default" *ngIf="forecastResponse">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{count}}-day forecast for {{forecastResponse?.city?.name}}
+            </h3>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let detail of forecastResponse?.list">
+                {{detail?.dt * 1000 | date: 'EEEE'}}, {{detail?.dt * 1000 | date: 'LLL'}} {{detail?.dt * 1000 | date: 'd'}}:
+                {{detail?.weather[0].main}}
+                - Min: {{detail?.temp?.min}}
+                - Max: {{detail?.temp?.max}}
+                <img class="icon" src="{{imgUrl}}{{detail?.weather[0].main | imgNamePipe}}{{imgExt}}">
+            </li>
+        </ul>
+    </div>
+    <button class="btn btn-success" (click)="backToMainPage()">&lt; Back to main page</button>
+</div>

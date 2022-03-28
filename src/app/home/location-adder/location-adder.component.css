@@ -1,0 +1,9 @@
+.alert-danger {
+    color: #a94442;
+    border-color: #ebccd1;
+    background-color: #f5f5f5;
+}
+
+.input-error {
+    border: #a94442 1px solid;
+}

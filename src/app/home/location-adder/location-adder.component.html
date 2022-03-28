@@ -1,7 +1,20 @@
 <form [formGroup]="addLocationForm" (ngSubmit)="addLocation()">
     <div class="well">
         <h2>Enter a zipcode:</h2>
-        <input class="form-control" placeholder="Zipcode" type="text" formControlName="zipcode">
+        <input class="form-control" (focus)="onFocus()"
+            [ngClass]="{'input-error': addLocationForm.get('zipcode')?.invalid && (addLocationForm.get('zipcode')?.dirty || addLocationForm.get('zipcode')?.touched)}"
+            placeholder="Zipcode" type="text" formControlName="zipcode">
+
+        <div *ngIf="addLocationForm.get('zipcode')?.invalid && (addLocationForm.get('zipcode')?.dirty || addLocationForm.get('zipcode')?.touched)"
+            class="alert-danger">
+
+            <div *ngIf="addLocationForm.get('zipcode')?.errors?.['required']">
+                Zipcode is required
+            </div>
+            <div *ngIf="addLocationForm.get('zipcode')?.errors?.['pattern']">
+                You must insert a 5-digit numerical value
+            </div>
+        </div>
         <br>
         <button class="btn btn-primary" type="submit">Add location</button>
     </div>

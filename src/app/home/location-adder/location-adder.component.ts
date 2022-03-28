@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-location-adder',
@@ -17,10 +17,26 @@ export class LocationAdderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.addLocationForm = this.formBuilder.group({ zipcode: [''] })
+    this.addLocationForm = this.formBuilder.group(
+      {
+        zipcode: ['', Validators.compose(
+          [Validators.required, Validators.pattern('[0-9]{5}')]
+        )]
+      }, { updateOn: 'blur' }
+    );
   }
 
   addLocation(): void {
-    this.onAddLocation.emit(this.addLocationForm.get('zipcode').value);
+    if (this.addLocationForm.valid) {
+      this.onAddLocation.emit(this.addLocationForm.get('zipcode').value);
+    } else {
+      this.addLocationForm.get('zipcode').markAsDirty();
+      this.addLocationForm.get('zipcode').markAsTouched();
+    }
+  }
+
+  onFocus(): void {
+    this.addLocationForm.get('zipcode').markAsPristine();
+    this.addLocationForm.get('zipcode').markAsUntouched();
   }
 }

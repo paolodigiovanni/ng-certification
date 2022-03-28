@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Configs } from '../../constants/configs.model';
@@ -31,8 +32,8 @@ export class ForecastPageComponent implements OnInit {
         (data: ForecastResponse) => {
           this.forecastResponse = data;
         },
-        () => {
-          alert("There was an error retrieving forecast daily weather");
+        (error: HttpErrorResponse) => {
+          alert(error?.error?.message);
         }
       )
     } else {

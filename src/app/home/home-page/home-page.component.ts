@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { WeatherApiService } from '../../core/services/weather-api.service';
 import { WeatherStorageService } from '../../core/services/weather-storage.service';
@@ -31,8 +32,8 @@ export class HomePageComponent implements OnInit {
           this.weatherMaps.unshift({ key: zipcode, value: data });
           this.weatherStorageService.updateWeatherMaps(this.weatherMaps);
         },
-        () => {
-          alert("There was an error retrieving current weather");
+        (error: HttpErrorResponse) => {
+          alert(error?.error?.message);
         }
       )
     }
